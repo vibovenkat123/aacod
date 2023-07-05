@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.2.1
+
+### Patch Changes
+
+- bb441c7: Added types for the shell command package
+
 ## 0.2.0
 
 ### Minor Changes
