@@ -2,17 +2,16 @@
   "name": "aacod",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/main.js",
+  "main": "index.js",
   "scripts": {
-      "build": "tsc",
-      "watch": "tsc -w",
-      "start": "node ./dist/main.js"
+    "build": "tsup src/index.ts --format cjs,esm --dts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.3.3",
+    "tsup": "^7.1.0",
     "typescript": "^5.1.6"
   }
 }
