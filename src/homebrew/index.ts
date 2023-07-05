@@ -18,9 +18,11 @@ export class BrewPackage {
       exec(`brew upgrade`, (err, stdout, stderr) => {
         if (err) {
           reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
+          return
         }
         if (stderr) {
           reject(new BrewError(stderr, ERROR_MSG.UPGRADE_ERR));
+          return
         }
         console.info(`Successfully upgraded all packages:
             ${stdout}`);
@@ -35,9 +37,11 @@ export class BrewPackage {
       exec(`brew update`, (err, stdout, stderr) => {
         if (err) {
           reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
+          return
         }
         if (stderr) {
           reject(new BrewError(stderr, ERROR_MSG.UPDATE_ERR));
+          return
         }
         console.info(`Successfully updated homebrew:
             ${stdout}`);
@@ -104,9 +108,11 @@ export class BrewPackage {
       exec(`brew install "${name}"`, (err, stdout, stderr) => {
         if (err) {
           reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
+          return
         }
         if (stderr) {
           resolve(this.getInfo(name));
+          return
         }
         console.info(`Successfully installed ${name}:
             ${stdout}`);
@@ -118,9 +124,11 @@ export class BrewPackage {
       exec(`brew info "${name}"`, (err, stdout, stderr) => {
         if (err) {
           reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
+          return
         }
         if (stderr) {
           reject(new BrewError(stderr, ERROR_MSG.STD_ERR_PACKAGE));
+          return
         }
         console.info(`${name} is already installed`);
         resolve();
