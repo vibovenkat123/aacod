@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.1.1
+
+### Patch Changes
+
+- 66ae9ec: Fixed misspelling for `pnpm run ci`
+
 ## 0.1.0
 
 ### Minor Changes
