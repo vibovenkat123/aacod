@@ -1,51 +1,48 @@
-import { exec } from "child_process";
 import {
   BrewError,
   BrewPackageOptions,
   BrewSafeInstallError,
   ERROR_MSG,
 } from "./types";
-
+import { execCmd } from "../lib";
 export class BrewPackage {
   public opts: BrewPackageOptions;
   constructor(opts: BrewPackageOptions) {
     this.opts = opts;
   }
 
-  private upgradeAll(): Promise<void> {
-    return new Promise((resolve, reject) => {
+  private async upgradeAll(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
       console.info("Upgrading all packages");
-      exec(`brew upgrade`, (err, stdout, stderr) => {
-        if (err) {
-          reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
-          return
-        }
-        if (stderr) {
-          reject(new BrewError(stderr, ERROR_MSG.UPGRADE_ERR));
-          return
-        }
-        console.info(`Successfully upgraded all packages:
-            ${stdout}`);
-        resolve();
-      });
+      const res = await execCmd(`brew upgrade`);
+      if (res.err) {
+        reject(new BrewError(res.err.message, ERROR_MSG.NODE_ERR));
+        return;
+      }
+      if (res.stderr) {
+        reject(new BrewError(res.stderr, ERROR_MSG.UPGRADE_ERR));
+        return;
+      }
+      console.info(`Successfully upgraded all packages:
+            ${res.stdout}`);
+      resolve();
     });
   }
 
   private updateHomebrew(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       console.info("Updating homebrew");
-      exec(`brew update`, (err, stdout, stderr) => {
-        if (err) {
-          reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
-          return
-        }
-        if (stderr) {
-          reject(new BrewError(stderr, ERROR_MSG.UPDATE_ERR));
-          return
-        }
-        console.info(`Successfully updated homebrew:
-            ${stdout}`);
-      });
+      const res = await execCmd(`brew update`);
+      if (res.err) {
+        reject(new BrewError(res.err.message, ERROR_MSG.NODE_ERR));
+        return;
+      }
+      if (res.stderr) {
+        reject(new BrewError(res.stderr, ERROR_MSG.UPDATE_ERR));
+        return;
+      }
+      console.info(`Successfully updated homebrew:
+            ${res.stdout}`);
       resolve();
     });
   }
@@ -84,12 +81,10 @@ export class BrewPackage {
         await this.upgradeAll();
       }
       if (Array.isArray(this.opts.name)) {
-        await this.installMany(this.opts.name);
-        resolve();
+        resolve(this.installMany(this.opts.name));
         return;
       }
-      await this.installOne(this.opts.name);
-      resolve();
+      resolve(this.installOne(this.opts.name));
     });
   }
   private installMany(names: string[]): Promise<void> {
@@ -103,36 +98,35 @@ export class BrewPackage {
   }
 
   private installOne(name: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       console.info(`Installing ${name}`);
-      exec(`brew install "${name}"`, (err, stdout, stderr) => {
-        if (err) {
-          reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
-          return
-        }
-        if (stderr) {
-          resolve(this.getInfo(name));
-          return
-        }
-        console.info(`Successfully installed ${name}:
-            ${stdout}`);
-      });
+      const res = await execCmd(`brew install "${name}"`);
+      if (res.err) {
+        reject(new BrewError(res.err.message, ERROR_MSG.NODE_ERR));
+        return;
+      }
+      if (res.stderr) {
+        resolve(this.getInfo(name));
+        return;
+      }
+      console.info(`Successfully installed ${name}:
+            ${res.stdout}`);
+      resolve();
     });
   }
   private getInfo(name: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      exec(`brew info "${name}"`, (err, stdout, stderr) => {
-        if (err) {
-          reject(new BrewError(err.message, ERROR_MSG.NODE_ERR));
-          return
-        }
-        if (stderr) {
-          reject(new BrewError(stderr, ERROR_MSG.STD_ERR_PACKAGE));
-          return
-        }
-        console.info(`${name} is already installed`);
-        resolve();
-      });
+    return new Promise(async (resolve, reject) => {
+      const res = await execCmd(`brew info "${name}"`);
+      if (res.err) {
+        reject(new BrewError(res.err.message, ERROR_MSG.NODE_ERR));
+        return;
+      }
+      if (res.stderr) {
+        reject(new BrewError(res.stderr, ERROR_MSG.STD_ERR_PACKAGE));
+        return;
+      }
+      console.info(`${name} is already installed`);
+      resolve();
     });
   }
 }

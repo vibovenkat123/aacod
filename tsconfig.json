@@ -16,6 +16,7 @@
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "noUncheckedIndexedAccess": true,
-    "noEmit": true
+    "noEmit": true,
+    "declaration": true
   }
 }

@@ -18,12 +18,6 @@ jobs:
         with:
           node-version: 16.x
           cache: "pnpm"
-      - run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/runner/.bash_profile
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          sudo apt-get install build-essential
-          brew update
       - run: pnpm install --frozen-lockfile
       - name: Create Release Pull Request or Publish
         id: changesets

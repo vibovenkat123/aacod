@@ -8,13 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install homebrew
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/runner/.bash_profile
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          sudo apt-get install build-essential
-          brew update
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -23,11 +16,5 @@ jobs:
           node-version: 16.x
           cache: "pnpm"
 
-      - run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/runner/.bash_profile
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          sudo apt-get install build-essential
-          brew update
       - run: pnpm install --frozen-lockfile
       - run: pnpm run ci
