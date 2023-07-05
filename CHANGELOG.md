@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.0.5
+
+### Patch Changes
+
+- 49a1eb8: Fixed issue where dist folder was not on npm
+
 ## 0.0.4
 
 ### Patch Changes
