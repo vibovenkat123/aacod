@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "tsc",
+    "dev": "vitest",
+    "test": "vitest run",
+    "ci": "pnpm lint  && pnpm test && pnpm build"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +16,7 @@
   "devDependencies": {
     "@types/node": "^20.3.3",
     "tsup": "^7.1.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vitest": "^0.32.4"
   }
 }
