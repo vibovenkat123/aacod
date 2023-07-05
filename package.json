@@ -1,0 +1,18 @@
+{
+  "name": "autocaml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+      "build": "tsc",
+      "watch": "tsc -w",
+      "start": "node ./dist/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "typescript": "^5.1.6"
+  }
+}
