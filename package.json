@@ -13,7 +13,7 @@
     "test": "vitest run",
     "ci": "pnpm lint  && pnpm test && pnpm build",
     "format": "npx prettier --write . --ignore-path .gitignore",
-    "release": "pnpm format && pnpmp ci && changeset publish"
+    "release": "pnpm format && pnpm ci && changeset publish"
   },
   "keywords": [],
   "author": "",
