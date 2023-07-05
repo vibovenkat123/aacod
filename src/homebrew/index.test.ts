@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
-import { BrewPackage } from "./homebrew";
-import { execCmd } from "./lib";
+import { BrewPackage } from "./";
+import { execCmd } from "../lib";
+import { BREW_ERROR_MSG } from "./types";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -12,7 +13,7 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock("./lib", () => {
+vi.mock("../lib", () => {
   return {
     execCmd: mocks.execCmd,
   };
@@ -28,6 +29,7 @@ describe("Test homebrew", () => {
       name: "git",
       update_homebrew: false,
       upgrade_all: false,
+      silent: true,
     });
     const res = await brew_package.safeInstall();
     expect(execCmd).toHaveBeenCalledTimes(1);
@@ -38,29 +40,35 @@ describe("Test homebrew", () => {
   it("Install git with stderr", async () => {
     mocks.execCmd.mockResolvedValue({
       stdout: "stdout",
-      stderr: "asdf",
+      stderr: "foo",
       err: null,
     });
     const brew_package = new BrewPackage({
       name: "git",
       update_homebrew: false,
       upgrade_all: false,
+      silent: true,
     });
     const res = await brew_package.safeInstall();
     expect(execCmd).toHaveBeenCalledTimes(2);
     expect(res.success).toBeFalsy();
     expect(res.error).not.toBeNull();
+    if (res.error) {
+      expect(res.error.name).toBe(
+        `Brew Error: ${BREW_ERROR_MSG.PACKAGE_NOT_FOUND}`,
+      );
+    }
   });
 
   it("Install git with err", async () => {
     mocks.execCmd.mockResolvedValue({
       stdout: "stdout",
       stderr: null,
-      err: "asdf",
+      err: "bar",
     });
     const brew_package = new BrewPackage({
       name: "git",
-
+      silent: true,
       update_homebrew: false,
       upgrade_all: false,
     });
@@ -68,5 +76,8 @@ describe("Test homebrew", () => {
     expect(execCmd).toHaveBeenCalledTimes(1);
     expect(res.success).toBeFalsy();
     expect(res.error).not.toBeNull();
+    if (res.error) {
+      expect(res.error.name).toBe(`Brew Error: ${BREW_ERROR_MSG.NODE_ERR}`);
+    }
   });
 });

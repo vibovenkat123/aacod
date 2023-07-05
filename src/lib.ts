@@ -6,9 +6,13 @@ type ExecResponse = {
   err: ExecException | null;
 };
 
-export function execCmd(cmd: string): Promise<ExecResponse> {
+export function execCmd(cmd: string, cwd?: string): Promise<ExecResponse> {
+  let opts = {};
+  if (cwd) {
+    opts = { cwd };
+  }
   return new Promise<ExecResponse>((resolve, _) => {
-    exec(cmd, (err, stdout, stderr) => {
+    exec(cmd, opts, (err, stdout, stderr) => {
       resolve({
         stdout,
         stderr,
