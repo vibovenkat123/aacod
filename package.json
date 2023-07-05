@@ -1,19 +1,23 @@
 {
-  "name": "aacod",
-  "version": "1.0.0",
+  "name": "@vaibhavvenkat/aacod",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
     "dev": "vitest",
     "test": "vitest run",
-    "ci": "pnpm lint  && pnpm test && pnpm build"
+    "ci": "pnpm lint  && pnpm test && pnpm build",
+    "release": "pnpm lint  && pnpm test && pnpm build && changesets publish"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@types/node": "^20.3.3",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",
