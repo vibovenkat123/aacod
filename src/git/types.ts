@@ -45,3 +45,9 @@ export type GitConfigOpts = {
   value?: string;
   silent: boolean;
 };
+
+export type GitConfigSafeResponse = {
+    success: boolean;
+    error: GitError | null;
+    data: string | null;
+}

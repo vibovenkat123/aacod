@@ -5,7 +5,8 @@ import {
     GitError,
     GitOpts,
     GitSafeResponse,
-    GitConfigOpts
+    GitConfigOpts,
+    GitConfigSafeResponse
 } from "./types";
 
 export class GitRepo {
@@ -116,19 +117,21 @@ export class GitConfig {
         })
     }
 
-    public async safeList(): Promise<GitSafeResponse> {
+    public async safeList(): Promise<GitConfigSafeResponse> {
         return new Promise(async (resolve, reject) => {
             try {
-                await this.list()
+                const res = await this.list()
                 resolve({
                     success: true,
                     error: null,
+                    data: res
                 })
             } catch (e) {
                 if (e instanceof GitError) {
                     resolve({
                         success: false,
                         error: e,
+                        data: null
                     })
                     return
                 }
@@ -140,7 +143,7 @@ export class GitConfig {
         })
     }
 
-    public list(): Promise<void> {
+    public list(): Promise<string> {
         return new Promise(async (resolve, reject) => {
             const res = await execCmd(`git config --get ${this.opts.name}`)
             if (res.err) {
@@ -154,7 +157,7 @@ export class GitConfig {
                 return
             }
             if (!this.opts.silent) Log.info(res.stdout)
-            resolve()
+            resolve(res.stdout)
         })
     }
 }
