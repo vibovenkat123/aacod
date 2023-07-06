@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.4.2
+
+### Patch Changes
+
+- 6d81453: Make some of the private functions in the Homebrew package public
+
 ## 0.4.1
 
 ### Patch Changes
