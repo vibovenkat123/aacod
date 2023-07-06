@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.4.1
+
+### Patch Changes
+
+- fe6251f: Add homebrew casks
+
 ## 0.4.0
 
 ### Minor Changes
