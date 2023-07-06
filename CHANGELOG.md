@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.5.1
+
+### Patch Changes
+
+- 69a60a6: Exported git config types
+
 ## 0.5.0
 
 ### Minor Changes
