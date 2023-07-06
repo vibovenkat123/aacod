@@ -4,7 +4,7 @@ import {
   BrewSafeInstallError,
   BREW_ERROR_MSG,
 } from "./types";
-import { execCmd } from "../lib";
+import { Log, execCmd } from "../lib";
 export class BrewPackage {
   public opts: BrewPackageOptions;
   constructor(opts: BrewPackageOptions) {
@@ -14,19 +14,21 @@ export class BrewPackage {
   private async upgradeAll(): Promise<void> {
     return new Promise(async (resolve, reject) => {
       if (!this.opts.silent) {
-        console.info("Upgrading all packages");
+        Log.info("Upgrading all packages");
       }
       const res = await execCmd(`brew upgrade`);
       if (res.err) {
+        if (!this.opts.silent) Log.error(res.err.message);
         reject(new BrewError(res.err.message, BREW_ERROR_MSG.NODE_ERR));
         return;
       }
       if (res.stderr) {
+        if (!this.opts.silent) Log.error(res.stderr);
         reject(new BrewError(res.stderr, BREW_ERROR_MSG.UPGRADE_ERR));
         return;
       }
       if (!this.opts.silent) {
-        console.info(`Successfully upgraded all packages:
+        Log.info(`Successfully upgraded all packages:
             ${res.stdout}`);
       }
       resolve();
@@ -35,18 +37,20 @@ export class BrewPackage {
 
   private updateHomebrew(): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      console.info("Updating homebrew");
+      Log.info("Updating homebrew");
       const res = await execCmd(`brew update`);
       if (res.err) {
+        if (!this.opts.silent) Log.error(res.err.message);
         reject(new BrewError(res.err.message, BREW_ERROR_MSG.NODE_ERR));
         return;
       }
       if (res.stderr) {
+        if (!this.opts.silent) Log.error(res.stderr);
         reject(new BrewError(res.stderr, BREW_ERROR_MSG.UPDATE_ERR));
         return;
       }
       if (!this.opts.silent) {
-        console.info(`Successfully updated homebrew:
+        Log.info(`Successfully updated homebrew:
             ${res.stdout}`);
       }
       resolve();
@@ -63,10 +67,15 @@ export class BrewPackage {
         });
       } catch (e) {
         if (e instanceof BrewError) {
+          if (!this.opts.silent) Log.error(e.message);
           resolve({
             success: false,
             error: e,
           });
+          return;
+        }
+        if (e instanceof Error) {
+          Log.fatal(e.message);
         }
         resolve({
           success: false,
@@ -96,7 +105,7 @@ export class BrewPackage {
   private installMany(names: string[]): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!this.opts.silent) {
-        console.info("Installing many packages");
+        Log.info("Installing many packages");
       }
       for (const name of names) {
         this.installOne(name);
@@ -108,19 +117,21 @@ export class BrewPackage {
   private installOne(name: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
       if (!this.opts.silent) {
-        console.info(`Installing ${name}`);
+        Log.info(`Installing ${name}`);
       }
       const res = await execCmd(`brew install "${name}"`);
       if (res.err) {
+        if (!this.opts.silent) Log.error(res.err.message);
         reject(new BrewError(res.err.message, BREW_ERROR_MSG.NODE_ERR));
         return;
       }
       if (res.stderr) {
+        if (!this.opts.silent) Log.error(res.stderr);
         resolve(this.getInfo(name));
         return;
       }
       if (!this.opts.silent) {
-        console.info(`Successfully installed ${name}:
+        Log.info(`Successfully installed ${name}:
             ${res.stdout}`);
       }
       resolve();
@@ -130,15 +141,17 @@ export class BrewPackage {
     return new Promise(async (resolve, reject) => {
       const res = await execCmd(`brew info "${name}"`);
       if (res.err) {
+        if (!this.opts.silent) Log.error(res.err.message);
         reject(new BrewError(res.err.message, BREW_ERROR_MSG.NODE_ERR));
         return;
       }
       if (res.stderr) {
+        if (!this.opts.silent) Log.error(res.stderr);
         reject(new BrewError(res.stderr, BREW_ERROR_MSG.PACKAGE_NOT_FOUND));
         return;
       }
       if (!this.opts.silent) {
-        console.info(`${name} is already installed`);
+        Log.info(`${name} is already installed`);
       }
       resolve();
     });

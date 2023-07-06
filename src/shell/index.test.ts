@@ -18,7 +18,7 @@ vi.mock("../lib", () => {
   };
 });
 
-describe("Test homebrew", () => {
+describe("Test shell", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });

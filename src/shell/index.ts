@@ -1,4 +1,4 @@
-import { execCmd } from "../lib";
+import { Log, execCmd } from "../lib";
 import { ShellCommandOpts, ShellCommandError, SafeRunResponse } from "./types";
 
 export class ShellCommand {
@@ -17,11 +17,15 @@ export class ShellCommand {
         });
       } catch (e) {
         if (e instanceof ShellCommandError) {
+          if (!this.opts.silent) Log.error(e.message);
           resolve({
             success: false,
             error: e,
           });
           return;
+        }
+        if (e instanceof Error) {
+          Log.fatal(e.message);
         }
         reject(e);
       }
@@ -41,16 +45,18 @@ export class ShellCommand {
         res = await execCmd(`${shell} -c ${this.opts.command}`);
       }
       if (res.err) {
+        if (!this.opts.silent) Log.error(res.err.message);
         reject(new ShellCommandError(res.err.message));
         return;
       }
       if (res.stderr) {
+        if (!this.opts.silent) Log.error(res.stderr);
         reject(new ShellCommandError(res.stderr));
         return;
       }
 
       if (!this.opts.silent) {
-        console.info(res.stdout);
+        Log.info(res.stdout);
       }
       resolve();
       return;

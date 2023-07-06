@@ -21,3 +21,26 @@ export function execCmd(cmd: string, cwd?: string): Promise<ExecResponse> {
     });
   });
 }
+
+export class Log {
+  public static info(msg: string) {
+    console.log(`[INFO] ${msg}`);
+  }
+  public static fatal(msg: string) {
+    console.error(`[FATAL] ${msg}`);
+    process.kill(process.pid, "SIGTERM");
+    process.exit(1);
+  }
+  public static error(msg: string) {
+    console.error(`[ERROR] ${msg}`);
+  }
+  public static warn(msg: string) {
+    console.warn(`[WARN] ${msg}`);
+  }
+  public static debug<T>(msg: T) {
+    console.debug(`[DEBUG] ${msg}`);
+  }
+  public static trace<T>(msg: T) {
+    console.trace(`[TRACE] ${msg}`);
+  }
+}
