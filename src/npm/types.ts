@@ -8,7 +8,7 @@ export type NpmPkgOpts = {
 
 export const NPM_ERROR_MSG = {
   NPM_CMD_NOT_FOUND: "npm command not found",
-  PKG_NOT_FOUND: "package not found",
+  PKG_NOT_FOUND: "Package not found or sudo required. Try again with sudo",
   MISC: "Can't install package",
 } as const;
 

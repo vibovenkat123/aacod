@@ -27,8 +27,7 @@ export class NpmPackage {
             error: e,
           });
           return;
-        }
-        if (e instanceof Error) {
+        } else if (e instanceof Error) {
           Log.fatal(e.message);
         }
         reject(e);
