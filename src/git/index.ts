@@ -156,8 +156,8 @@ export class GitConfig {
                 reject(new GitError(res.err.message, GIT_ERROR_MSG.KEY_NOT_FOUND))
                 return
             }
-            if (!this.opts.silent) Log.info(res.stdout)
-            resolve(res.stdout)
+            if (!this.opts.silent) Log.info(res.stdout.trim())
+            resolve(res.stdout.trim())
         })
     }
 }
