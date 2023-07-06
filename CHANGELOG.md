@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.5.4
+
+### Patch Changes
+
+- a2c8488: Add npm packages
+
 ## 0.5.3
 
 ### Patch Changes
