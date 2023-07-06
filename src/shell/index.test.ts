@@ -32,7 +32,7 @@ describe("Test shell", () => {
     });
     const res = await cmd.safeRun();
     expect(execCmd).toHaveBeenCalledTimes(1);
-    expect(execCmd).toHaveBeenCalledWith(`${process.env.SHELL} -c ${command}`);
+    expect(execCmd).toHaveBeenCalledWith(`${process.env.SHELL || "/bin/sh"} -c ${command}`);
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });
