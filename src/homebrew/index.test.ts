@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { BrewPackage } from "./";
-import { execCmd } from "../lib";
+import { Log, execCmd } from "../lib";
 import { BREW_ERROR_MSG } from "./types";
 
 const mocks = vi.hoisted(() => {
@@ -13,8 +13,10 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock("../lib", () => {
+vi.mock("../lib", async () => {
+  const actual = (await vi.importActual("../lib")) as Log;
   return {
+    ...actual,
     execCmd: mocks.execCmd,
   };
 });

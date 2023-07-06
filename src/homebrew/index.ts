@@ -77,7 +77,7 @@ export class BrewPackage {
         if (e instanceof Error) {
           Log.fatal(e.message);
         }
-        reject(e)
+        reject(e);
       }
     });
   }

@@ -12,4 +12,17 @@ export {
 } from "./shell/types";
 
 export { GitRepo, GitConfig } from "./git";
-export { GitOpts, GitError, GitSafeResponse, GitConfigOpts, GitConfigSafeResponse} from "./git/types";
+export {
+  GitOpts,
+  GitError,
+  GitSafeResponse,
+  GitConfigOpts,
+  GitConfigSafeResponse,
+} from "./git/types";
+
+export {NpmPackage} from "./npm";
+export {
+    NpmSafeResponse,
+    NpmError,
+    NpmPkgOpts
+} from "./npm/types";

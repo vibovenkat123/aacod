@@ -64,7 +64,9 @@ describe("Test git", () => {
     });
     const res = await git.safeClone();
     expect(execCmd).toHaveBeenCalledTimes(1);
-    expect(execCmd).toHaveBeenCalledWith(`git clone -b ${branch} ${repo} ${dest}`);
+    expect(execCmd).toHaveBeenCalledWith(
+      `git clone -b ${branch} ${repo} ${dest}`,
+    );
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });
@@ -96,45 +98,47 @@ describe("Test git", () => {
 });
 
 describe("Test git config", () => {
-    afterEach(() => {
-        vi.clearAllMocks();
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+  it("Set git config", async () => {
+    mocks.execCmd.mockResolvedValue({
+      stdout: "stdout",
+      stderr: null,
+      err: null,
     });
-    it("Set git config", async () => {
-        mocks.execCmd.mockResolvedValue({
-            stdout: "stdout",
-            stderr: null,
-            err: null,
-        });
-        const name = "user.name"
-        const value = "test"
-        const scope = "global"
-        const conf = new GitConfig({
-            name,
-            value,
-            scope,
-            silent: true,
-        })
-        const res = await conf.safeSet()
-        expect(execCmd).toHaveBeenCalledTimes(1)
-        expect(execCmd).toHaveBeenCalledWith(`git config --${scope} ${name} ${value}`)
-        expect(res.success).toBeTruthy()
-        expect(res.error).toBeNull()
-    })
-    it("List git config", async () => {
-        mocks.execCmd.mockResolvedValue({
-            stdout: "stdout",
-            stderr: null,
-            err: null,
-        });
-        const name = "user.name"
-        const conf = new GitConfig({
-            name,
-            silent: true,
-        })
-        const res = await conf.safeList()
-        expect(execCmd).toHaveBeenCalledTimes(1)
-        expect(execCmd).toHaveBeenCalledWith(`git config --get ${name}`)
-        expect(res.success).toBeTruthy()
-        expect(res.error).toBeNull()
-    })
-})
+    const name = "user.name";
+    const value = "test";
+    const scope = "global";
+    const conf = new GitConfig({
+      name,
+      value,
+      scope,
+      silent: true,
+    });
+    const res = await conf.safeSet();
+    expect(execCmd).toHaveBeenCalledTimes(1);
+    expect(execCmd).toHaveBeenCalledWith(
+      `git config --${scope} ${name} ${value}`,
+    );
+    expect(res.success).toBeTruthy();
+    expect(res.error).toBeNull();
+  });
+  it("List git config", async () => {
+    mocks.execCmd.mockResolvedValue({
+      stdout: "stdout",
+      stderr: null,
+      err: null,
+    });
+    const name = "user.name";
+    const conf = new GitConfig({
+      name,
+      silent: true,
+    });
+    const res = await conf.safeList();
+    expect(execCmd).toHaveBeenCalledTimes(1);
+    expect(execCmd).toHaveBeenCalledWith(`git config --get ${name}`);
+    expect(res.success).toBeTruthy();
+    expect(res.error).toBeNull();
+  });
+});

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { ShellCommand } from "./";
-import { execCmd } from "../lib";
+import { Log, execCmd } from "../lib";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -12,8 +12,10 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock("../lib", () => {
+vi.mock("../lib", async () => {
+  const actual = (await vi.importActual("../lib")) as Log;
   return {
+    ...actual,
     execCmd: mocks.execCmd,
   };
 });
@@ -32,7 +34,9 @@ describe("Test shell", () => {
     });
     const res = await cmd.safeRun();
     expect(execCmd).toHaveBeenCalledTimes(1);
-    expect(execCmd).toHaveBeenCalledWith(`${process.env.SHELL || "/bin/sh"} -c ${command}`);
+    expect(execCmd).toHaveBeenCalledWith(
+      `${process.env.SHELL || "/bin/sh"} -c ${command}`,
+    );
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });
