@@ -11,7 +11,7 @@ export class BrewPackage {
     this.opts = opts;
   }
 
-  private async upgradeAll(): Promise<void> {
+  public async upgradeAllPkgs(): Promise<void> {
     return new Promise(async (resolve, reject) => {
       if (!this.opts.silent) {
         Log.info("Upgrading all packages");
@@ -35,7 +35,7 @@ export class BrewPackage {
     });
   }
 
-  private updateHomebrew(): Promise<void> {
+  public updateHomebrew(): Promise<void> {
     return new Promise(async (resolve, reject) => {
       Log.info("Updating homebrew");
       const res = await execCmd(`brew update`);
@@ -93,7 +93,7 @@ export class BrewPackage {
         await this.updateHomebrew();
       }
       if (this.opts.upgrade_all) {
-        await this.upgradeAll();
+        await this.upgradeAllPkgs();
       }
       if (Array.isArray(this.opts.name)) {
         resolve(this.installMany(this.opts.name));
