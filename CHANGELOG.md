@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.5.5
+
+### Patch Changes
+
+- d1a00b1: Fix perms issue
+
 ## 0.5.4
 
 ### Patch Changes
