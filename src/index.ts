@@ -11,5 +11,5 @@ export {
   ShellCommandError,
 } from "./shell/types";
 
-export { GitRepo } from "./git";
-export { GitOpts, GitError, GitSafeResponse } from "./git/types";
+export { GitRepo, GitConfig } from "./git";
+export { GitOpts, GitError, GitSafeResponse, GitConfigOpts} from "./git/types";
