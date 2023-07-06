@@ -77,13 +77,7 @@ export class BrewPackage {
         if (e instanceof Error) {
           Log.fatal(e.message);
         }
-        resolve({
-          success: false,
-          error: new BrewError(
-            "Something went wrong while installing",
-            BREW_ERROR_MSG.MISC,
-          ),
-        });
+        reject(e)
       }
     });
   }
@@ -115,12 +109,12 @@ export class BrewPackage {
   }
 
   private installOne(name: string): Promise<void> {
-    const caskMsg = this.opts.cask ? "--cask " : "";
+    const caskMsg = this.opts.cask ? " --cask" : "";
     return new Promise(async (resolve, reject) => {
       if (!this.opts.silent) {
         Log.info(`Installing ${name}`);
       }
-      const res = await execCmd(`brew install ${caskMsg} "${name}"`);
+      const res = await execCmd(`brew install${caskMsg} ${name}`);
       if (res.err) {
         if (!this.opts.silent) Log.error(res.err.message);
         reject(new BrewError(res.err.message, BREW_ERROR_MSG.NODE_ERR));
@@ -141,7 +135,7 @@ export class BrewPackage {
 
   private getInfo(name: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      const res = await execCmd(`brew info "${name}"`);
+      const res = await execCmd(`brew info ${name}`);
       if (res.err) {
         if (!this.opts.silent) Log.error(res.err.message);
         reject(new BrewError(res.err.message, BREW_ERROR_MSG.NODE_ERR));

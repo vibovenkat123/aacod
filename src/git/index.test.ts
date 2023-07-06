@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
-import { GitRepo } from "./";
+import { GitConfig, GitRepo } from "./";
 import { Log, execCmd } from "../lib";
 import { ExecException } from "child_process";
 
@@ -19,47 +19,52 @@ vi.mock("../lib", async () => {
     execCmd: mocks.execCmd,
   };
 });
-
+const repo = "git@github.com:testusername/blah.git";
+const dest = "./test";
 describe("Test git", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
   it("Clone git", async () => {
     const git = new GitRepo({
-      repo: "git@github.com:testusername/blah.git",
+      repo,
       silent: true,
-      dest: "./test",
+      dest,
       bare: false,
     });
     const res = await git.safeClone();
     expect(execCmd).toHaveBeenCalledTimes(1);
+    expect(execCmd).toHaveBeenCalledWith(`git clone ${repo} ${dest}`);
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });
 
   it("Clone git with bare", async () => {
     const git = new GitRepo({
-      repo: "git@github.com:testusername/blah.git",
+      repo,
       silent: true,
-      dest: "./test",
+      dest,
       bare: true,
     });
     const res = await git.safeClone();
     expect(execCmd).toHaveBeenCalledTimes(1);
+    expect(execCmd).toHaveBeenCalledWith(`git clone --bare ${repo} ${dest}`);
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });
 
   it("Clone git with branch", async () => {
+    const branch = "main";
     const git = new GitRepo({
-      repo: "git@github.com:testusername/blah.git",
+      repo,
       silent: true,
-      dest: "./test",
+      dest,
       bare: false,
-      branch: "main",
+      branch,
     });
     const res = await git.safeClone();
     expect(execCmd).toHaveBeenCalledTimes(1);
+    expect(execCmd).toHaveBeenCalledWith(`git clone -b ${branch} ${repo} ${dest}`);
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });
@@ -89,3 +94,47 @@ describe("Test git", () => {
     expect(res.error).toBeNull();
   });
 });
+
+describe("Test git config", () => {
+    afterEach(() => {
+        vi.clearAllMocks();
+    });
+    it("Set git config", async () => {
+        mocks.execCmd.mockResolvedValue({
+            stdout: "stdout",
+            stderr: null,
+            err: null,
+        });
+        const name = "user.name"
+        const value = "test"
+        const scope = "global"
+        const conf = new GitConfig({
+            name,
+            value,
+            scope,
+            silent: true,
+        })
+        const res = await conf.safeSet()
+        expect(execCmd).toHaveBeenCalledTimes(1)
+        expect(execCmd).toHaveBeenCalledWith(`git config --${scope} ${name} ${value}`)
+        expect(res.success).toBeTruthy()
+        expect(res.error).toBeNull()
+    })
+    it("List git config", async () => {
+        mocks.execCmd.mockResolvedValue({
+            stdout: "stdout",
+            stderr: null,
+            err: null,
+        });
+        const name = "user.name"
+        const conf = new GitConfig({
+            name,
+            silent: true,
+        })
+        const res = await conf.safeList()
+        expect(execCmd).toHaveBeenCalledTimes(1)
+        expect(execCmd).toHaveBeenCalledWith(`git config --get ${name}`)
+        expect(res.success).toBeTruthy()
+        expect(res.error).toBeNull()
+    })
+})

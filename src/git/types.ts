@@ -2,6 +2,7 @@ export const GIT_ERROR_MSG = {
   NOT_FOUND: "Repository not found or you don't have permission to access it",
   GIT_CMD_NOT_FOUND: "The git command is not found",
   MISC: "An error occurred while executing the git command",
+  KEY_NOT_FOUND: "The key (git config key) is not found",
 } as const;
 
 export const GIT_WARNING_MSG = {
@@ -30,3 +31,17 @@ export class GitError extends Error {
     this.name = `Git Error: ${title}`;
   }
 }
+export const GIT_CONFIG_SCOPE = {
+  GLOBAL: "global",
+  LOCAL: "local",
+  SYSTEM: "system",
+} as const;
+
+type GitConfigScope = (typeof GIT_CONFIG_SCOPE)[keyof typeof GIT_CONFIG_SCOPE];
+
+export type GitConfigOpts = {
+  name: string;
+  scope?: GitConfigScope;
+  value?: string;
+  silent: boolean;
+};

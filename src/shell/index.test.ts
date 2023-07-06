@@ -18,6 +18,8 @@ vi.mock("../lib", () => {
   };
 });
 
+const command = "ls";
+
 describe("Test shell", () => {
   afterEach(() => {
     vi.clearAllMocks();
@@ -25,11 +27,12 @@ describe("Test shell", () => {
 
   it("Run command", async () => {
     const cmd = new ShellCommand({
-      command: "ls",
+      command,
       silent: true,
     });
     const res = await cmd.safeRun();
     expect(execCmd).toHaveBeenCalledTimes(1);
+    expect(execCmd).toHaveBeenCalledWith(`${process.env.SHELL} -c ${command}`);
     expect(res.success).toBeTruthy();
     expect(res.error).toBeNull();
   });

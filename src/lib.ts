@@ -23,24 +23,22 @@ export function execCmd(cmd: string, cwd?: string): Promise<ExecResponse> {
 }
 
 export class Log {
-  public static info(msg: string) {
+  public static info(msg: string): void {
     console.log(`[INFO] ${msg}`);
   }
-  public static fatal(msg: string) {
+  public static fatal(msg: string): void {
     console.error(`[FATAL] ${msg}`);
-    process.kill(process.pid, "SIGTERM");
-    process.exit(1);
   }
-  public static error(msg: string) {
+  public static error(msg: string): void {
     console.error(`[ERROR] ${msg}`);
   }
-  public static warn(msg: string) {
+  public static warn(msg: string): void {
     console.warn(`[WARN] ${msg}`);
   }
-  public static debug<T>(msg: T) {
+  public static debug<T>(msg: T): void {
     console.debug(`[DEBUG] ${msg}`);
   }
-  public static trace<T>(msg: T) {
+  public static trace<T>(msg: T): void {
     console.trace(`[TRACE] ${msg}`);
   }
 }
