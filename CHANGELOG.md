@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.5.0
+
+### Minor Changes
+
+- a4bccc1: Added git configs
+
 ## 0.4.2
 
 ### Patch Changes
