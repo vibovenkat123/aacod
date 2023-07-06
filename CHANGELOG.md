@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.3.0
+
+### Minor Changes
+
+- 89d84f4: Add git package
+
 ## 0.2.1
 
 ### Patch Changes
