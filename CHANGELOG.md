@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.4.0
+
+### Minor Changes
+
+- 651d71d: Export git types
+
 ## 0.3.0
 
 ### Minor Changes
