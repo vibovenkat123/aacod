@@ -20,6 +20,7 @@ export class BrewError extends Error {
 
 export type BrewPackageOptions = {
   name: string | string[];
+  cask: boolean;
   silent: boolean;
   update_homebrew: boolean;
   upgrade_all: boolean;
