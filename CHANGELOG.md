@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.5.3
+
+### Patch Changes
+
+- cffdd4a: Trim the string from git config
+
 ## 0.5.2
 
 ### Patch Changes
