@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.5.2
+
+### Patch Changes
+
+- 5934c7c: Return a string for listing config
+
 ## 0.5.1
 
 ### Patch Changes
