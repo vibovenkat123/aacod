@@ -1,5 +1,5 @@
 import { ShellCommand } from "../shell";
-import { UrlOpts, UrlSafeGetRes } from "./types";
+import { UrlOpts, UrlSafeGetResponse } from "./types";
 
 export class Url {
     public opts: UrlOpts;
@@ -9,7 +9,7 @@ export class Url {
         this.timeout_command = opts.timeout ? ` -m ${this.opts.timeout}` : "";
     }
     
-    public safeGet(): Promise<UrlSafeGetRes> {
+    public safeGet(): Promise<UrlSafeGetResponse> {
         const command = `curl -L -o${this.timeout_command} ${this.opts.dest} ${this.opts.url}`; 
         const commandObj = new ShellCommand({
             command,

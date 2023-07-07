@@ -30,5 +30,5 @@ export {
 export {Url} from "./curl"
 export {
     UrlOpts,
-    UrlSafeGetRes
+    UrlSafeGetResponse
 } from "./curl/types";
