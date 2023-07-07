@@ -11,7 +11,7 @@
 
 ![example workflow](https://github.com/vibovenkat123/aacod/actions/workflows/publish.yml/badge.svg)
 ![example workflow](https://github.com/vibovenkat123/aacod/actions/workflows/main.yml/badge.svg)
-[![npm version](https://badge.fury.io/js/@vaibhavvenkat%2Faacod.svg)](https://badge.fury.io/js/@vaibhavvenkat%2Faacod)
+[![npm version](https://badge.fury.io/js/@vaibhavvenkat%2Faacod.svg?)](https://badge.fury.io/js/@vaibhavvenkat%2Faacod)
 
 </div>
 <div align="center">
