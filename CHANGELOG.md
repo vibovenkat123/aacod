@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.5
+
+### Patch Changes
+
+- 7471d91: Don't cache readme image
+
 ## 0.6.4
 
 ### Patch Changes
