@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.4
+
+### Patch Changes
+
+- afd7df2: Remove warning in readme
+
 ## 0.6.3
 
 ### Patch Changes
