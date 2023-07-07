@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.0
+
+### Minor Changes
+
+- 7d363b9: Add brew uninstalling and curl
+
 ## 0.5.5
 
 ### Patch Changes
