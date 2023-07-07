@@ -26,7 +26,7 @@ export type BrewPackageOptions = {
   upgrade_all: boolean;
 };
 
-export type BrewSafeInstallError = {
+export type BrewSafeError = {
   success: boolean;
   error: BrewError | null;
 };

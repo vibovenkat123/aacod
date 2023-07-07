@@ -2,7 +2,7 @@ export { BrewPackage } from "./homebrew/index";
 export {
   BrewError,
   BrewPackageOptions,
-  BrewSafeInstallError,
+  BrewSafeError as BrewSafeInstallError,
 } from "./homebrew/types";
 export { ShellCommand } from "./shell";
 export {
@@ -26,3 +26,9 @@ export {
     NpmError,
     NpmPkgOpts
 } from "./npm/types";
+
+export {Url} from "./curl"
+export {
+    UrlOpts,
+    UrlSafeGetRes
+} from "./curl/types";
