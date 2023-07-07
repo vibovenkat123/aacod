@@ -8,6 +8,7 @@ type ShellExecutable =
   | "/usr/bin/env bash"
   | "/usr/bin/env zsh"
   | (string & {});
+
 export type ShellCommandOpts = {
   command: string;
   silent: boolean;

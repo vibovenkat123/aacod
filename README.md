@@ -14,11 +14,20 @@
 [![npm version](https://badge.fury.io/js/@vaibhavvenkat%2Faacod.svg)](https://badge.fury.io/js/@vaibhavvenkat%2Faacod)
 
 </div>
+<div align="center">
+    <a href="https://aacod-docs.vaibhavvenkat.com" rel="noreferrer noopener" target="_blank">
+        Docs
+    </a>
+    <a href="https://vaibhavvenkat.notion.site/eb306b9c04524f288b614da1c92bf483?v=39102172dbda4101a3b968e7c4c0f492&pvs=4">
+        Roadmap
+    </a>
+</div>
 
 ## Table of contents
 - <a href="#about">About AACOD</a>
   - <a href="#why">Methodology of AACOD</a>
 - <a href="#getting-started">Getting started</a>
+- <a href="#usage">Usage</a>
 
 <h2 id="about">A(utomation) A(s) COD(e)</h2>
 
@@ -73,8 +82,8 @@ package. The package *simply provides classes to run commands*.
 **Example**
   
 ```ts
-// ❌ This is not how it works
 import { BrewPackage, BrewPackageOptions } from "@vaibhavvenkat/aacod";
+// ❌ This is not how it works
 
 async function bad() {
   // we don't have an  `installNames` function
@@ -114,6 +123,7 @@ main()
 
 
 <h2 id="getting-started">Getting started</h2>
+
 [Package on npmjs](https://www.npmjs.com/package/@vaibhavvenkat/aacod)
 
 To install the package, use your favourite package manager.
@@ -136,5 +146,13 @@ yarn add @vaibhavvenkat/aacod
 pnpm add @vaibhavvenkat/aacod
 ```
 
-## Usage
+<h2 id="usage">Usage</h2>
 
+***WARNING: THE DOCS ARE NOT COMPLETE YET***
+
+<a href="https://aacod-docs.vaibhavvenkat.com" rel="noreferrer noopener" target="_blank">
+    Docs
+</a>
+
+-----------------
+By Vaibhav Venkat
