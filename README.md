@@ -148,8 +148,6 @@ pnpm add @vaibhavvenkat/aacod
 
 <h2 id="usage">Usage</h2>
 
-**_WARNING: THE DOCS ARE NOT COMPLETE YET_**
-
 <a href="https://aacod-docs.vaibhavvenkat.com" rel="noreferrer noopener" target="_blank">
     Docs
 </a>
