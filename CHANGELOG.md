@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.2
+
+### Patch Changes
+
+- 71e20ed: Add docs in readme
+
 ## 0.6.1
 
 ### Patch Changes
