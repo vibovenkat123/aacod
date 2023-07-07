@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.1
+
+### Patch Changes
+
+- 05de3c3: Added readme
+
 ## 0.6.0
 
 ### Minor Changes
