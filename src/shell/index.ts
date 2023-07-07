@@ -3,10 +3,12 @@ import { ShellCommandOpts, ShellCommandError, SafeRunResponse } from "./types";
 
 export class ShellCommand {
   public opts: ShellCommandOpts;
+
   constructor(opts: ShellCommandOpts) {
     this.opts = opts;
   }
 
+  // Just wrap the run method so it doens't throw
   public safeRun(): Promise<SafeRunResponse> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -34,8 +36,12 @@ export class ShellCommand {
 
   public run(): Promise<void> {
     return new Promise(async (resolve, reject) => {
+      // The longest or logical or?
       const shell = this.opts.executable || process.env.SHELL || "/bin/sh";
+
+      // there is probably a better way to do this
       let res = null;
+
       if (this.opts.chdir) {
         res = await execCmd(
           `${shell} -c ${this.opts.command}`,
@@ -44,11 +50,13 @@ export class ShellCommand {
       } else {
         res = await execCmd(`${shell} -c ${this.opts.command}`);
       }
+
       if (res.err) {
         if (!this.opts.silent) Log.error(res.err.message);
         reject(new ShellCommandError(res.err.message));
         return;
       }
+
       if (res.stderr) {
         if (!this.opts.silent) Log.error(res.stderr);
         reject(new ShellCommandError(res.stderr));

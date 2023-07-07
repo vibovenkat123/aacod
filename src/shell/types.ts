@@ -7,7 +7,7 @@ type ShellExecutable =
   | "/usr/bin/sh"
   | "/usr/bin/env bash"
   | "/usr/bin/env zsh"
-  | (string & {});
+  | (string & {}); // hack to allow autocomplete to work for the other unions
 
 export type ShellCommandOpts = {
   command: string;

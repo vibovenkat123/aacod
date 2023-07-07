@@ -8,7 +8,7 @@ export const BREW_ERROR_MSG = {
 } as const;
 
 export type BREW_ERROR_MSG =
-  (typeof BREW_ERROR_MSG)[keyof typeof BREW_ERROR_MSG];
+  (typeof BREW_ERROR_MSG)[keyof typeof BREW_ERROR_MSG]; // enum
 
 export class BrewError extends Error {
   constructor(current_error: string, error: BREW_ERROR_MSG) {

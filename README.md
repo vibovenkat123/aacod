@@ -24,6 +24,7 @@
 </div>
 
 ## Table of contents
+
 - <a href="#about">About AACOD</a>
   - <a href="#why">Methodology of AACOD</a>
 - <a href="#getting-started">Getting started</a>
@@ -31,7 +32,7 @@
 
 <h2 id="about">A(utomation) A(s) COD(e)</h2>
 
-_AACOD_ is a away Automate having the same environment all within typescript.   
+_AACOD_ is a away Automate having the same environment all within typescript.  
 Clone git repos, install packages, run scripts, all within a pragmatic way.
 It has:
 
@@ -39,28 +40,29 @@ It has:
 - A way to clone git repos
 - A way to run shell scripts
 - A way to install npm packages
-- A way to run commands in the terminal 
+- A way to run commands in the terminal
 
 ```ts
 // index.ts
 import { BrewPackage } from "@vaibhavvenkat/aacod";
 
 const git = new BrewPackage({
-    name: "git",
-    silent: false,
-    cask: false,
-    upgrade_all: false,
-    update_homebrew: false
-})
+  name: "git",
+  silent: false,
+  cask: false,
+  upgrade_all: false,
+  update_homebrew: false,
+});
 
 async function main() {
-    const res = await git.safeInstall();
-    //  ^?    { success: boolean, error: BrewError | null }
-    console.log(res) // { success: true, error: null }
+  const res = await git.safeInstall();
+  //  ^?    { success: boolean, error: BrewError | null }
+  console.log(res); // { success: true, error: null }
 }
 
-main()
+main();
 ```
+
 <h3 id="why">Why would you ever need this?</h3>
 Imagine you get a new computer, or set up a new server in the cloud.
 
@@ -76,11 +78,11 @@ typescript, you can use all the features of typescript to make your life easier,
 Like arrays, objects, classes, functions, special types, etc.
 
 Keep in mind **this is not as fully featured as [Ansible](https://www.ansible.com)**,
-the package expects you write your own typescript code ***along*** with the 
-package. The package *simply provides classes to run commands*.
+the package expects you write your own typescript code **_along_** with the
+package. The package _simply provides classes to run commands_.
 
 **Example**
-  
+
 ```ts
 import { BrewPackage, BrewPackageOptions } from "@vaibhavvenkat/aacod";
 // ❌ This is not how it works
@@ -93,34 +95,32 @@ async function bad() {
 
 // ✅ This is how it works
 const pkgs: Pick<BrewPackageOptions, "name">[] = [
-    {
-        name: "git",
-    },
-    {
-        name: "node",
-    },
+  {
+    name: "git",
+  },
+  {
+    name: "node",
+  },
 ];
 
-
 async function main() {
-    for (const pkg of pkgs) {
-        const brewPkg = new BrewPackage({
-            name: pkg.name,
-            silent: false,
-            cask: false,
-            update_homebrew: false,
-            upgrade_all: false
-        })
-        const res = await brewPkg.safeInstall()
-        if (!res.success) {
-            console.error(res.error)
-        }
+  for (const pkg of pkgs) {
+    const brewPkg = new BrewPackage({
+      name: pkg.name,
+      silent: false,
+      cask: false,
+      update_homebrew: false,
+      upgrade_all: false,
+    });
+    const res = await brewPkg.safeInstall();
+    if (!res.success) {
+      console.error(res.error);
     }
+  }
 }
 
-main()
+main();
 ```
-
 
 <h2 id="getting-started">Getting started</h2>
 
@@ -141,18 +141,19 @@ yarn add @vaibhavvenkat/aacod
 ```
 
 **pnpm**
-  
+
 ```bash
 pnpm add @vaibhavvenkat/aacod
 ```
 
 <h2 id="usage">Usage</h2>
 
-***WARNING: THE DOCS ARE NOT COMPLETE YET***
+**_WARNING: THE DOCS ARE NOT COMPLETE YET_**
 
 <a href="https://aacod-docs.vaibhavvenkat.com" rel="noreferrer noopener" target="_blank">
     Docs
 </a>
 
------------------
+---
+
 By Vaibhav Venkat

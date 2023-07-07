@@ -7,10 +7,8 @@ type ExecResponse = {
 };
 
 export function execCmd(cmd: string, cwd?: string): Promise<ExecResponse> {
-  let opts = {};
-  if (cwd) {
-    opts = { cwd };
-  }
+  const opts = cwd ? { cwd } : {};
+
   return new Promise<ExecResponse>((resolve, _) => {
     exec(cmd, opts, (err, stdout, stderr) => {
       resolve({

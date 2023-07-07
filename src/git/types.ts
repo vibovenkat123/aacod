@@ -15,7 +15,7 @@ export type GitSafeResponse = {
   error: GitError | null;
 };
 
-type GitErrorMsg = (typeof GIT_ERROR_MSG)[keyof typeof GIT_ERROR_MSG];
+type GitErrorMsg = (typeof GIT_ERROR_MSG)[keyof typeof GIT_ERROR_MSG]; // enum
 
 export type GitOpts = {
   repo: string;
@@ -35,7 +35,7 @@ export const GIT_CONFIG_SCOPE = {
   GLOBAL: "global",
   LOCAL: "local",
   SYSTEM: "system",
-} as const;
+} as const; // I think these are all of em
 
 type GitConfigScope = (typeof GIT_CONFIG_SCOPE)[keyof typeof GIT_CONFIG_SCOPE];
 

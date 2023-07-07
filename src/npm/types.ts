@@ -1,7 +1,7 @@
 export type NpmPkgOpts = {
   name: string;
   version?: string;
-  path?: string;
+  path?: string; // where to install the package
   global: boolean;
   silent: boolean;
 };
@@ -12,7 +12,7 @@ export const NPM_ERROR_MSG = {
   MISC: "Can't install package",
 } as const;
 
-type NpmErrorMsg = (typeof NPM_ERROR_MSG)[keyof typeof NPM_ERROR_MSG];
+type NpmErrorMsg = (typeof NPM_ERROR_MSG)[keyof typeof NPM_ERROR_MSG]; // enum
 
 export class NpmError extends Error {
   constructor(msg: string, title: NpmErrorMsg) {

@@ -1,4 +1,5 @@
 import { Log, execCmd } from "../lib";
+
 import {
   GIT_ERROR_MSG,
   GIT_WARNING_MSG,
@@ -14,6 +15,7 @@ export class GitRepo {
   constructor(opts: GitOpts) {
     this.opts = opts;
   }
+
   public safeClone(): Promise<GitSafeResponse> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -41,6 +43,7 @@ ${e.message}`);
       }
     });
   }
+
   public clone(): Promise<void> {
     return new Promise(async (resolve, reject) => {
       const branch_cmd = this.opts.branch ? ` -b ${this.opts.branch}` : "";
@@ -49,7 +52,9 @@ ${e.message}`);
           this.opts.repo
         } ${this.opts.dest}`,
       );
+
       if (res.err) {
+        // 127 is the code for command not found
         if (res.err.code === 127) {
           if (!this.opts.silent) Log.error(GIT_ERROR_MSG.GIT_CMD_NOT_FOUND);
           reject(
@@ -57,12 +62,17 @@ ${e.message}`);
           );
           return;
         } else if (res.err.code === 128) {
-          const second_res = await execCmd(`ls ${this.opts.dest}`);
+          // check if the destination directory is not empty
+          const second_res = await execCmd(
+            `[ -n "$(ls -A ${this.opts.dest} 2>/dev/null)" ]`,
+          );
+
           if (!second_res.stderr) {
             if (!this.opts.silent) Log.warn(GIT_WARNING_MSG.DEST_NOT_EMPTY);
             resolve();
             return;
           }
+
           reject(new GitError(res.err.message, GIT_ERROR_MSG.NOT_FOUND));
           return;
         }
@@ -110,6 +120,7 @@ export class GitConfig {
           this.opts.name
         } ${this.opts.value}`,
       );
+
       if (res.err) {
         if (res.err.code === 127) {
           if (!this.opts.silent) Log.error(GIT_ERROR_MSG.GIT_CMD_NOT_FOUND);
@@ -168,7 +179,7 @@ export class GitConfig {
         reject(new GitError(res.err.message, GIT_ERROR_MSG.KEY_NOT_FOUND));
         return;
       }
-      if (!this.opts.silent) Log.info(res.stdout.trim());
+      if (!this.opts.silent) Log.info(res.stdout.trim()); // trim to remove trailing newline
       resolve(res.stdout.trim());
     });
   }

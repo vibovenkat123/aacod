@@ -20,15 +20,8 @@ export {
   GitConfigSafeResponse,
 } from "./git/types";
 
-export {NpmPackage} from "./npm";
-export {
-    NpmSafeResponse,
-    NpmError,
-    NpmPkgOpts
-} from "./npm/types";
+export { NpmPackage } from "./npm";
+export { NpmSafeResponse, NpmError, NpmPkgOpts } from "./npm/types";
 
-export {Url} from "./curl"
-export {
-    UrlOpts,
-    UrlSafeGetResponse
-} from "./curl/types";
+export { Url } from "./curl";
+export { UrlOpts, UrlSafeGetResponse } from "./curl/types";
