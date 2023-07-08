@@ -123,6 +123,9 @@ main();
 
 <h2 id="getting-started">Getting started</h2>
 
+**If you are on a brand new computer (on a Unix system), you can run `./setup.sh`
+to initialize an npm project in your directory and install `AACOD`.**
+
 [Package on npmjs](https://www.npmjs.com/package/@vaibhavvenkat/aacod)
 
 To install the package, use your favourite package manager.
