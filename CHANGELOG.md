@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.7
+
+### Patch Changes
+
+- f7a9bcf: Add a setup script for new computers
+
 ## 0.6.6
 
 ### Patch Changes
