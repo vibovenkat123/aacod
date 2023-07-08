@@ -7,19 +7,18 @@
   Get started by running <code>npm install @vaibhavvenkat/aacod</code>
 </p>
 
-<div align="center">
 
-![publish](https://github.com/vibovenkat123/aacod/actions/workflows/publish.yml/badge.svg?)
-![main](https://github.com/vibovenkat123/aacod/actions/workflows/main.yml/badge.svg?)
-[![npm version](https://badge.fury.io/js/@vaibhavvenkat%2Faacod.svg?)](https://badge.fury.io/js/@vaibhavvenkat%2Faacod)
-
-</div>
 <div align="center">
     <a href="https://aacod-docs.vaibhavvenkat.com" rel="noreferrer noopener" target="_blank">
         Docs
     </a>
+    <br />
     <a href="https://vaibhavvenkat.notion.site/eb306b9c04524f288b614da1c92bf483?v=39102172dbda4101a3b968e7c4c0f492&pvs=4">
         Roadmap
+    </a>
+    <br />
+    <a href="https://www.npmjs.com/package/@vaibhavvenkat/aacod">
+        NPM package
     </a>
 </div>
 
