@@ -1,5 +1,11 @@
 # @vaibhavvenkat/aacod
 
+## 0.6.6
+
+### Patch Changes
+
+- d08525e: Fix github links
+
 ## 0.6.5
 
 ### Patch Changes
